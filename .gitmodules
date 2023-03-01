@@ -1,0 +1,6 @@
+[submodule "libs/glfw"]
+	path = libs/glfw
+	url = git@github.com:glfw/glfw.git
+[submodule "libs/capi"]
+	path = libs/capi
+	url = git@github.com:JeneLitsch/Litan-C-Api.git

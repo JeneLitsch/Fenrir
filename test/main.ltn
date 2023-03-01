@@ -1,0 +1,20 @@
+function main() {
+	fenrir::load("build/src/libfenrir.so");
+	fenrir::init();
+	var window = fenrir::window_create(800, 600, "Hello");
+
+	var vertecies = [
+		fenrir::vertex((1.0, 1.0), (1.0,0.0,0.0)),
+		fenrir::vertex((1.0, -1.0), (0.0,1.0,0.0)),
+		fenrir::vertex((-1.0, -1.0), (0.0,0.0,1.0)),
+	];
+
+	while(fenrir::window_is_open(window)) {
+		fenrir::window_poll_events(window);
+		fenrir::window_clear(window, 255, 0, 0);
+		fenrir::window_draw_triangles(window, vertecies);
+		fenrir::window_display(window);
+	}
+
+	fenrir::window_close(window);
+}

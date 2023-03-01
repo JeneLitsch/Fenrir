@@ -1,0 +1,77 @@
+namespace fenrir {
+	namespace impl {
+		global init;
+
+		global window_create;
+		global window_close;
+		global window_is_open;
+		global window_clear;
+		global window_display;
+		global window_poll_events;
+
+		global vertex_begin;
+		global vertex_end;
+		global vertex_set_color;
+		global vertex_emit_vertex;
+	}
+
+
+
+	function load(path : string) {
+		var lib = std::lib::open(path);
+		global impl::init               = std::lib::get_fx(lib, "fenris_init");
+
+		global impl::window_create      = std::lib::get_fx(lib, "fenris_window_create");
+		global impl::window_close       = std::lib::get_fx(lib, "fenris_window_close");
+		global impl::window_is_open     = std::lib::get_fx(lib, "fenris_window_is_open");
+		global impl::window_clear       = std::lib::get_fx(lib, "fenris_window_clear");
+		global impl::window_display     = std::lib::get_fx(lib, "fenris_window_display");
+		global impl::window_poll_events = std::lib::get_fx(lib, "fenris_window_poll_events");
+
+		global impl::vertex_begin       = std::lib::get_fx(lib, "fenris_begin");
+		global impl::vertex_end         = std::lib::get_fx(lib, "fenris_end");
+		global impl::vertex_set_color   = std::lib::get_fx(lib, "fenris_set_color");
+		global impl::vertex_emit_vertex = std::lib::get_fx(lib, "fenris_emit_vertex");
+	}
+
+
+
+	function init() 
+		=> global impl::init()
+
+	function window_create(width : int, heigth : int, title : string)
+		=> global impl::window_create(width, heigth, title)
+
+	function window_close(window)
+		=> global impl::window_close(window)
+
+	function window_is_open(window)
+		=> global impl::window_is_open(window)
+
+	function window_clear(window)
+		=> global impl::window_clear(window, 0, 0, 0)
+
+	function window_clear(window, r : int, g : int, b : int)
+		=> global impl::window_clear(window, r, g, b)
+
+	function window_display(window)
+		=> global impl::window_display(window)
+
+	function window_poll_events(window)
+		=> global impl::window_poll_events(window)
+
+	function window_draw_triangles(window, vertecies) {
+		global impl::vertex_begin();
+		for(vertex : vertecies) {
+			var pos = vertex[0];
+			var rgb = vertex[1];
+			global impl::vertex_set_color(rgb[0], rgb[1], rgb[2]);
+			global impl::vertex_emit_vertex(pos[0], pos[1]);
+		}
+		global impl::vertex_end();
+	}
+
+	function vertex(xy, rgb) {
+		return (xy, rgb);
+	}
+}
